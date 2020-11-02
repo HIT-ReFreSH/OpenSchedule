@@ -14,43 +14,41 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace OpenSchedule
 {
-    
     public class Schedule
     {
+        private readonly ISet<Course> CourseSet = new SortedSet<Course>();
+
         /// <summary>
-        /// the schedule of a student, containing all the course of the student.
-        /// 某个人的课程表，是他所需要上的所有课程的集合。
+        ///     constructor
+        /// </summary>
+        /// <param name="name">the name of the student</param>
+        public Schedule(string name)
+        {
+            StudentName = name;
+        }
+
+        /// <summary>
+        ///     the schedule of a student, containing all the course of the student.
+        ///     某个人的课程表，是他所需要上的所有课程的集合。
         /// </summary>
         private string StudentName { get; }
 
-        private ISet<Course> CourseSet = new SortedSet<Course>();
-
         /// <summary>
-        /// constructor
+        ///     get the name of the student
         /// </summary>
-        /// <param name="name">the name of the student</param>
-        public Schedule(String name)
-        {
-            this.StudentName = name;
-        }
-
-        /// <summary>
-        /// get the name of the student
-        /// </summary>
-        /// <returns><the name of the student/returns>
+        /// <returns>
+        ///     <the name of the student/ returns>
         public string GetStudentName()
         {
-            return this.StudentName;
+            return StudentName;
         }
 
         /// <summary>
-        /// add a new course to the CourseSet
+        ///     add a new course to the CourseSet
         /// </summary>
         /// <param name="newCourse">the Course need to be added</param>
         /// <returns></returns>
@@ -60,7 +58,7 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        /// delete a course in the CourseSet
+        ///     delete a course in the CourseSet
         /// </summary>
         /// <param name="course">the Course need to be deleted</param>
         /// <returns></returns>
@@ -70,7 +68,7 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        /// check if the course is already in the CourseSet
+        ///     check if the course is already in the CourseSet
         /// </summary>
         /// <param name="course">true if it's been added;else false</param>
         /// <returns></returns>
@@ -78,7 +76,5 @@ namespace OpenSchedule
         {
             return CourseSet.Contains(course);
         }
-
-
     }
 }

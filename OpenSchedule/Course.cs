@@ -1,57 +1,54 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenSchedule
 {
     /// <summary>
-    /// 
     /// </summary>
     public class Course
     {
-
-        /// <summary>
-        /// A course, containing a set of eventInformation(including courseInformation and examInformation)
-        /// 一门课程，实际为若干课程信息和考试信息的集合
-        /// </summary>
-        private string CourseName { get; }
-        private string CourseId { get; }
-
         private readonly ISet<CourseInformation> CourseSet = new SortedSet<CourseInformation>();
 
         private readonly ISet<ExamInformation> ExamSet = new SortedSet<ExamInformation>();
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="name">the name of the course</param>
         public Course(string name, string IdNum)
         {
-            this.CourseName = name;
-            this.CourseId = IdNum;
+            CourseName = name;
+            CourseId = IdNum;
         }
 
         /// <summary>
-        /// get the name of the course
+        ///     A course, containing a set of eventInformation(including courseInformation and examInformation)
+        ///     一门课程，实际为若干课程信息和考试信息的集合
+        /// </summary>
+        private string CourseName { get; }
+
+        private string CourseId { get; }
+
+        /// <summary>
+        ///     get the name of the course
         /// </summary>
         /// <returns>the name of the course</returns>
         public string GetCourseName()
         {
-            return this.CourseName;
+            return CourseName;
         }
 
         /// <summary>
-        /// get the Id of the Course
+        ///     get the Id of the Course
         /// </summary>
         /// <returns>the Id of the Course</returns>
         public string GetCourseId()
         {
-            return this.CourseId;
+            return CourseId;
         }
 
         /// <summary>
-        /// add a new course event to the course
+        ///     add a new course event to the course
         /// </summary>
         /// <param name="newCourse">the course need to be added</param>
         /// <returns>true if delete successfully ; else false</returns>
@@ -61,7 +58,7 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        /// delete a course event from the course
+        ///     delete a course event from the course
         /// </summary>
         /// <param name="courseToDelete">the course need to be deleted</param>
         /// <returns>true if delete successfully; else false</returns>
@@ -72,7 +69,7 @@ namespace OpenSchedule
 
 
         /// <summary>
-        /// add a new exam event to the course
+        ///     add a new exam event to the course
         /// </summary>
         /// <param name="newExam">the exam need to be added</param>
         /// <returns>true if add successfully; else false</returns>
@@ -82,7 +79,7 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        /// delete a exam event from the course
+        ///     delete a exam event from the course
         /// </summary>
         /// <param name="examToDelete"></param>
         /// <returns>true if delete successfully; else flase</returns>
@@ -92,7 +89,7 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        /// check if the event has been added to the course
+        ///     check if the event has been added to the course
         /// </summary>
         /// <param name="eventInfo">the event need to be checked</param>
         /// <returns>true if it's been added already;else false</returns>
@@ -100,6 +97,5 @@ namespace OpenSchedule
         {
             return CourseSet.Contains(eventInfo) || ExamSet.Contains(eventInfo);
         }
-        
     }
 }
