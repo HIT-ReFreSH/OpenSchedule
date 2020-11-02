@@ -30,24 +30,6 @@ namespace OpenSchedule
         private string CourseId { get; }
 
         /// <summary>
-        ///     get the name of the course
-        /// </summary>
-        /// <returns>the name of the course</returns>
-        public string GetCourseName()
-        {
-            return CourseName;
-        }
-
-        /// <summary>
-        ///     get the Id of the Course
-        /// </summary>
-        /// <returns>the Id of the Course</returns>
-        public string GetCourseId()
-        {
-            return CourseId;
-        }
-
-        /// <summary>
         ///     add a new course event to the course
         /// </summary>
         /// <param name="newCourse">the course need to be added</param>
