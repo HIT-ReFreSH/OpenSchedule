@@ -4,6 +4,20 @@ namespace OpenSchedule
 {
     public class EventInformation : IComparable, ICloneable
     {
+        
+
+        /// <summary>
+        ///     The info of an event, including classroom(the location of a class),
+        ///     the start time of the course and the duration of the course.
+        ///     表示一个事件的信息（可以是课程，也可以是考试），内容包含:地点 classroom，开始时间 StartTime，时长 EventDuration
+        ///     注意，这里的一个信息，只能表示某一天的某一个具体的事件，而不是一个学期的同一个事件的集合。
+        /// </summary>
+        public Guid EventId { get; }
+
+        public string Classroom { get; }
+        public DateTime StartTime { get; }
+        public TimeSpan EventDuration { get; }
+
         /// <summary>
         ///     the constructor of class EventInformation
         /// </summary>
@@ -36,18 +50,6 @@ namespace OpenSchedule
             EventDuration = duration;
             EventId = Id;
         }
-
-        /// <summary>
-        ///     The info of an event, including classroom(the location of a class),
-        ///     the start time of the course and the duration of the course.
-        ///     表示一个事件的信息（可以是课程，也可以是考试），内容包含:地点 classroom，开始时间 StartTime，时长 EventDuration
-        ///     注意，这里的一个信息，只能表示某一天的某一个具体的事件，而不是一个学期的同一个事件的集合。
-        /// </summary>
-        public Guid EventId { get; }
-
-        public string Classroom { get; }
-        public DateTime StartTime { get; }
-        public TimeSpan EventDuration { get; }
 
         /// <summary>
         ///     get a new Event same with this event
