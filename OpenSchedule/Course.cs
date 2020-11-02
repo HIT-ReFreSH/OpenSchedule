@@ -1,63 +1,105 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenSchedule
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Course : ICollection<EventInformation>
+    public class Course
     {
-        public string CourseName { get; }
 
-        public int Count => throw new NotImplementedException();
+        /// <summary>
+        /// A course, containing a set of eventInformation(including courseInformation and examInformation)
+        /// 一门课程，实际为若干课程信息和考试信息的集合
+        /// </summary>
+        private string CourseName { get; }
+        private string CourseId { get; }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        private readonly ISet<CourseInformation> CourseSet = new SortedSet<CourseInformation>();
 
-        private ICollection<EventInformation> CourseInfos = new List<EventInformation> {
-        };
-        private ICollection<EventInformation> ExamInfos = new List<EventInformation>();
+        private readonly ISet<ExamInformation> ExamSet = new SortedSet<ExamInformation>();
 
-        public Course(string courseName)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="name">the name of the course</param>
+        public Course(string name, string IdNum)
         {
-            CourseName = courseName;
+            this.CourseName = name;
+            this.CourseId = IdNum;
         }
 
-        public void Add(EventInformation item)
+        /// <summary>
+        /// get the name of the course
+        /// </summary>
+        /// <returns>the name of the course</returns>
+        public string GetCourseName()
         {
-            //throw new NotImplementedException();
-
+            return this.CourseName;
         }
 
-        public void Clear()
+        /// <summary>
+        /// get the Id of the Course
+        /// </summary>
+        /// <returns>the Id of the Course</returns>
+        public string GetCourseId()
         {
-            throw new NotImplementedException();
+            return this.CourseId;
         }
 
-        public bool Contains(EventInformation item)
+        /// <summary>
+        /// add a new course event to the course
+        /// </summary>
+        /// <param name="newCourse">the course need to be added</param>
+        /// <returns>true if delete successfully ; else false</returns>
+        public bool AddCourse(CourseInformation newCourse)
         {
-            throw new NotImplementedException();
+            return CourseSet.Add(newCourse);
         }
 
-        public void CopyTo(EventInformation[] array, int arrayIndex)
+        /// <summary>
+        /// delete a course event from the course
+        /// </summary>
+        /// <param name="courseToDelete">the course need to be deleted</param>
+        /// <returns>true if delete successfully; else false</returns>
+        public bool DeleteCourse(CourseInformation courseToDelete)
         {
-            throw new NotImplementedException();
+            return CourseSet.Remove(courseToDelete);
         }
 
-        public bool Remove(EventInformation item)
+
+        /// <summary>
+        /// add a new exam event to the course
+        /// </summary>
+        /// <param name="newExam">the exam need to be added</param>
+        /// <returns>true if add successfully; else false</returns>
+        public bool AddExam(ExamInformation newExam)
         {
-            throw new NotImplementedException();
+            return ExamSet.Add(newExam);
         }
 
-        public IEnumerator<EventInformation> GetEnumerator()
+        /// <summary>
+        /// delete a exam event from the course
+        /// </summary>
+        /// <param name="examToDelete"></param>
+        /// <returns>true if delete successfully; else flase</returns>
+        public bool DeleteCourse(ExamInformation examToDelete)
         {
-            throw new NotImplementedException();
+            return ExamSet.Remove(examToDelete);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        /// <summary>
+        /// check if the event has been added to the course
+        /// </summary>
+        /// <param name="eventInfo">the event need to be checked</param>
+        /// <returns>true if it's been added already;else false</returns>
+        public bool Contains(EventInformation eventInfo)
         {
-            throw new NotImplementedException();
+            return CourseSet.Contains(eventInfo) || ExamSet.Contains(eventInfo);
         }
+        
     }
 }

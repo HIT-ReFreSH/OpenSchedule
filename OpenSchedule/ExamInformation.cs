@@ -4,7 +4,7 @@ namespace OpenSchedule
     public class ExamInformation:EventInformation
     {
         /// <summary>
-        /// the construct
+        /// the constructor
         /// </summary>
         /// <param name="room"></param>
         /// <param name="start"></param>

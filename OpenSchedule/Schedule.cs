@@ -20,71 +20,65 @@ using System.Collections.Generic;
 
 namespace OpenSchedule
 {
-    public class ExistedCourseException : Exception
-    {  
-    }
-    public class Schedule:ICollection<Course>
+    
+    public class Schedule
     {
+        /// <summary>
+        /// the schedule of a student, containing all the course of the student.
+        /// 某个人的课程表，是他所需要上的所有课程的集合。
+        /// </summary>
         private string StudentName { get; }
 
-        private IList<Course> Courses = new List<Course>();
+        private ISet<Course> CourseSet = new SortedSet<Course>();
 
-        public int Count => throw new System.NotImplementedException();
-
-        public bool IsReadOnly => throw new System.NotImplementedException();
-
-        
-
-        public void Add(Course item)
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="name">the name of the student</param>
+        public Schedule(String name)
         {
-            if (Courses.Contains(item))//The course has existed in the course list
-            {
-                throw new ExistedCourseException();
-            }
-            Courses.Add(item);
-        
+            this.StudentName = name;
         }
 
-        public void Clear()
+        /// <summary>
+        /// get the name of the student
+        /// </summary>
+        /// <returns><the name of the student/returns>
+        public string GetStudentName()
         {
-            //throw new System.NotImplementedException();
-
+            return this.StudentName;
         }
 
-        
-
-        public bool Contains(Course item)
+        /// <summary>
+        /// add a new course to the CourseSet
+        /// </summary>
+        /// <param name="newCourse">the Course need to be added</param>
+        /// <returns></returns>
+        public bool AddNewCourse(Course newCourse)
         {
-            throw new System.NotImplementedException();
+            return CourseSet.Add(newCourse);
         }
 
-        
-
-        public void CopyTo(Course[] array, int arrayIndex)
+        /// <summary>
+        /// delete a course in the CourseSet
+        /// </summary>
+        /// <param name="course">the Course need to be deleted</param>
+        /// <returns></returns>
+        public bool DeleteCourse(Course course)
         {
-            throw new System.NotImplementedException();
+            return CourseSet.Remove(course);
         }
 
-        public IEnumerator<Course> GetEnumerator()
+        /// <summary>
+        /// check if the course is already in the CourseSet
+        /// </summary>
+        /// <param name="course">true if it's been added;else false</param>
+        /// <returns></returns>
+        public bool Contains(Course course)
         {
-            throw new System.NotImplementedException();
+            return CourseSet.Contains(course);
         }
 
-        
 
-        public bool Remove(Course item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        IEnumerator<Course> IEnumerable<Course>.GetEnumerator()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
