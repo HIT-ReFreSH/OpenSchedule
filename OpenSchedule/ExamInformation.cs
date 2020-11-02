@@ -3,6 +3,12 @@ namespace OpenSchedule
 {
     public class ExamInformation:EventInformation
     {
+        /// <summary>
+        /// the construct
+        /// </summary>
+        /// <param name="room"></param>
+        /// <param name="start"></param>
+        /// <param name="duration"></param>
         public ExamInformation(string room, DateTime start, TimeSpan duration) :base(room,start,duration)
         {
         }
