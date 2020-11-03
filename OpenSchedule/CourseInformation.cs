@@ -1,25 +1,46 @@
-﻿using System;
+﻿/*
+Copyright 2020 ReFreSH
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+using System;
 
 namespace OpenSchedule
 {
     public class CourseInformation : EventInformation
     {
         /// <summary>
-        ///     The info of a course,including the teacher's name,and the info of the event(classroom,start time and the duration)
-        ///     继承自类EventInformation，表示一个课程。内容包括：教师名称 Teacher，以及父类的变量Classroom, StartTime, Duration
-        ///     注意，这里的CourseInformation仅表示某一天的某一节课，而不是某一门课的全部信息。
-        ///     如果要实现某一门课的信息集合，请移步类Course。
+        ///     Information of a course,including the teacher's name,and the info of the event(classroom,start time and the duration)
         /// </summary>
         public string Teacher { get; }
 
-
+       
         /// <summary>
-        ///     constructor of class CourseInfomation
+        ///     Constructor of class CourseInfomation
         /// </summary>
-        /// <param name="room">the location of the course</param>
-        /// <param name="start">the startime of the course（including date and time)</param>
-        /// <param name="duration">the duration of the course</param>
-        /// <param name="teacherName">the name of the teacher of the course</param>
+        /// <param name="room">
+        ///     Location of the course
+        /// </param>
+        /// <param name="start">
+        ///     Start time of the course（including date and time)
+        /// </param>
+        /// <param name="duration">
+        ///     Duration of the course
+        /// </param>
+        /// <param name="teacherName">
+        ///     Name of the teacher in the course
+        /// </param>
         public CourseInformation(string room, DateTime start, TimeSpan duration, string teacherName) : base(room, start,
             duration)
         {

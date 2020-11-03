@@ -1,16 +1,31 @@
-﻿using System;
+﻿/*
+Copyright 2020 ReFreSH
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+using System;
 
 namespace OpenSchedule
 {
+
     public class EventInformation : IComparable, ICloneable
     {
         
 
         /// <summary>
         ///     The info of an event, including classroom(the location of a class),
-        ///     the start time of the course and the duration of the course.
-        ///     表示一个事件的信息（可以是课程，也可以是考试），内容包含:地点 classroom，开始时间 StartTime，时长 EventDuration
-        ///     注意，这里的一个信息，只能表示某一天的某一个具体的事件，而不是一个学期的同一个事件的集合。
+        ///         the start time of the course and the duration of the course.
         /// </summary>
         public Guid EventId { get; }
 
@@ -19,15 +34,17 @@ namespace OpenSchedule
         public TimeSpan EventDuration { get; }
 
         /// <summary>
-        ///     the constructor of class EventInformation
+        ///     Constructor of class EventInformation
         /// </summary>
-        /// <param name="room">the location of the event</param>
-        /// <param name="start">the start time of the event</param>
+        /// <param name="room">
+        ///     Location of the event
+        /// </param>
+        /// <param name="start">
+        ///     Start time of the event
+        /// </param>
         /// <param name="duration">
-        ///     the duration of the event
-        ///     <param name="EventId">
-        ///         the hash of the event
-        ///     </param>
+        ///     Duration of the event
+        /// </param>
         public EventInformation(string room, DateTime start, TimeSpan duration)
         {
             Classroom = room;
@@ -37,13 +54,21 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        ///     a new constructor of class EventInformation, only used in method clone()
+        ///     Constructor of class EventInformation, only used in method clone()
         /// </summary>
-        /// <param name="room"></param>
-        /// <param name="start"></param>
-        /// <param name="duration"></param>
-        /// <param name="Id"></param>
-        public EventInformation(string room, DateTime start, TimeSpan duration, Guid Id)
+        /// <param name="room">
+        ///     Location of this event
+        /// </param>
+        /// <param name="start">
+        ///     Start time of this event
+        /// </param>
+        /// <param name="duration">
+        ///     Duration of this event
+        /// </param>
+        /// <param name="Id">
+        ///     Id of this event
+        /// </param>
+        private EventInformation(string room, DateTime start, TimeSpan duration, Guid Id)
         {
             Classroom = room;
             StartTime = start;
@@ -52,29 +77,35 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        ///     get a new Event same with this event
+        ///     Get a new Event same with this event
         /// </summary>
-        /// <returns>an object same with the current event</returns>
+        /// <returns>
+        ///     An object same with the current event
+        /// </returns>
         public object Clone()
         {
             return new EventInformation(Classroom, StartTime, EventDuration, EventId);
         }
 
         /// <summary>
-        ///     compare the input obj and this event by time
+        ///     Compare the input obj and this event by time
         /// </summary>
-        /// <param name="obj">the object compared with the current event</param>
+        /// <param name="obj">
+        ///     Object compared with the current event
+        /// </param>
         /// <returns>
-        ///     1 if the obj is null
-        ///     positive if the obj is earlier than the current event
-        ///     negative if the obj is later than the current event
-        ///     0 if the times are the same
+        ///     Throw a NullReferenceException if obj is null
+        ///     Positive if the obj is earlier than the current event
+        ///     Negative if the obj is later than the current event
+        ///     0 if the two times are the same
         /// </returns>
         public int CompareTo(object obj)
         {
-            if (obj == null) return 1;
+            if (obj == null) throw new NullReferenceException();
+
             if (obj is EventInformation otherEventInformation)
                 return StartTime.CompareTo(otherEventInformation.StartTime);
+
             throw new ArgumentException("Object is not a EventInformation");
         }
     }

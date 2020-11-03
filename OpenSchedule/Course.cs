@@ -1,4 +1,21 @@
-﻿using System.Collections.Generic;
+﻿/*
+Copyright 2020 ReFreSH
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenSchedule
@@ -7,77 +24,101 @@ namespace OpenSchedule
     /// </summary>
     public class Course
     {
-        private readonly ISet<CourseInformation> CourseSet = new SortedSet<CourseInformation>();
 
-        private readonly ISet<ExamInformation> ExamSet = new SortedSet<ExamInformation>();
+        /// <summary>
+        ///     A course selected by the schedule user in the educational administration system(jwts),
+        ///         contains a number of course information and examination information
+        /// </summary>
+        public string CourseName { get; }
+        public Guid CourseId { get; }
+
+        private readonly ISet<CourseInformation> _CourseSet = new SortedSet<CourseInformation>();
+
+        private readonly ISet<ExamInformation> _ExamSet = new SortedSet<ExamInformation>();
 
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="name">the name of the course</param>
-        public Course(string name, string IdNum)
+        /// <param name="name">
+        ///     Name of the course
+        /// </param>
+        public Course(string name)
         {
             CourseName = name;
-            CourseId = IdNum;
+            CourseId = Guid.NewGuid();
         }
 
-        /// <summary>
-        ///     A course, containing a set of eventInformation(including courseInformation and examInformation)
-        ///     一门课程，实际为若干课程信息和考试信息的集合
-        /// </summary>
-        private string CourseName { get; }
-
-        private string CourseId { get; }
+        
 
         /// <summary>
-        ///     add a new course event to the course
+        ///     Add a new course event to the course
         /// </summary>
-        /// <param name="newCourse">the course need to be added</param>
-        /// <returns>true if delete successfully ; else false</returns>
+        /// <param name="newCourse">
+        ///     Course need to be added
+        /// </param>
+        /// <returns>
+        ///     True if delete successfully
+        /// </returns>
         public bool AddCourse(CourseInformation newCourse)
         {
-            return CourseSet.Add(newCourse);
+            return _CourseSet.Add(newCourse);
         }
 
         /// <summary>
-        ///     delete a course event from the course
+        ///     Delete a course event from the course
         /// </summary>
-        /// <param name="courseToDelete">the course need to be deleted</param>
-        /// <returns>true if delete successfully; else false</returns>
+        /// <param name="courseToDelete">
+        ///     Course need to be deleted
+        /// </param>
+        /// <returns>
+        ///     True if delete successfully
+        /// </returns>
         public bool DeleteCourse(CourseInformation courseToDelete)
         {
-            return CourseSet.Remove(courseToDelete);
+            return _CourseSet.Remove(courseToDelete);
         }
 
 
         /// <summary>
-        ///     add a new exam event to the course
+        ///     Add a new exam event to the course
         /// </summary>
-        /// <param name="newExam">the exam need to be added</param>
-        /// <returns>true if add successfully; else false</returns>
+        /// <param name="newExam">
+        ///     Exam need to be added
+        /// </param>
+        /// <returns>
+        ///     True if add successfully
+        /// </returns>
         public bool AddExam(ExamInformation newExam)
         {
-            return ExamSet.Add(newExam);
+            return _ExamSet.Add(newExam);
         }
 
         /// <summary>
-        ///     delete a exam event from the course
+        ///     Delete a exam event from the course
         /// </summary>
-        /// <param name="examToDelete"></param>
-        /// <returns>true if delete successfully; else flase</returns>
+        /// <param name="examToDelete">
+        ///     Exam need to be deleted
+        /// </param>
+        /// <returns>
+        ///     True if delete successfully
+        /// </returns>
         public bool DeleteCourse(ExamInformation examToDelete)
         {
-            return ExamSet.Remove(examToDelete);
+            return _ExamSet.Remove(examToDelete);
         }
 
         /// <summary>
-        ///     check if the event has been added to the course
+        ///     Check if the event has been added to the course
         /// </summary>
-        /// <param name="eventInfo">the event need to be checked</param>
-        /// <returns>true if it's been added already;else false</returns>
+        /// <param name="eventInfo">
+        ///     Event need to be checked
+        /// </param>
+        /// <returns>
+        ///     True if it's been added already
+        /// </returns>
         public bool Contains(EventInformation eventInfo)
         {
-            return CourseSet.Contains(eventInfo) || ExamSet.Contains(eventInfo);
+            return _CourseSet.Contains(eventInfo) || _ExamSet.Contains(eventInfo);
         }
     }
 }

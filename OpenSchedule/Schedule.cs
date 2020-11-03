@@ -20,61 +20,65 @@ namespace OpenSchedule
 {
     public class Schedule
     {
-        private readonly ISet<Course> CourseSet = new SortedSet<Course>();
 
         /// <summary>
-        ///     constructor
+        ///     A complete schedule , containing all the course the owner has chosen
         /// </summary>
-        /// <param name="name">the name of the student</param>
+        public string OwnerName { get; }
+
+        private readonly ISet<Course> _CourseSet = new SortedSet<Course>();
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="name"
+        ///     Name of the owner's name of the schedule
+        /// </param>
         public Schedule(string name)
         {
-            StudentName = name;
+            OwnerName = name;
         }
 
         /// <summary>
-        ///     the schedule of a student, containing all the course of the student.
-        ///     某个人的课程表，是他所需要上的所有课程的集合。
+        ///     Add a new course to the CourseSet
         /// </summary>
-        private string StudentName { get; }
-
-        /// <summary>
-        ///     get the name of the student
-        /// </summary>
+        /// <param name="newCourse">
+        ///     Course need to be added
+        /// </param>
         /// <returns>
-        ///     <the name of the student/ returns>
-        public string GetStudentName()
-        {
-            return StudentName;
-        }
-
-        /// <summary>
-        ///     add a new course to the CourseSet
-        /// </summary>
-        /// <param name="newCourse">the Course need to be added</param>
-        /// <returns></returns>
+        ///     True if add successfully
+        /// </returns>
         public bool AddNewCourse(Course newCourse)
         {
-            return CourseSet.Add(newCourse);
+            return _CourseSet.Add(newCourse);
         }
 
         /// <summary>
-        ///     delete a course in the CourseSet
+        ///     Delete a course in the CourseSet
         /// </summary>
-        /// <param name="course">the Course need to be deleted</param>
-        /// <returns></returns>
+        /// <param name="course">
+        ///     Course need to be deleted
+        /// </param>
+        /// <returns>
+        ///     True if delete successfully
+        /// </returns>
         public bool DeleteCourse(Course course)
         {
-            return CourseSet.Remove(course);
+            return _CourseSet.Remove(course);
         }
 
         /// <summary>
-        ///     check if the course is already in the CourseSet
+        ///     Check if the course is already in the CourseSet
         /// </summary>
-        /// <param name="course">true if it's been added;else false</param>
-        /// <returns></returns>
+        /// <param name="course">
+        ///     Course need to be checked
+        /// </param>
+        /// <returns>
+        ///     True if it's been added
+        /// </returns>
         public bool Contains(Course course)
         {
-            return CourseSet.Contains(course);
+            return _CourseSet.Contains(course);
         }
     }
 }
