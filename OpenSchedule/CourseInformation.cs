@@ -18,6 +18,11 @@ using System;
 
 namespace OpenSchedule
 {
+    /// <summary>
+    ///     Represants a set of information of a course, including the teacher's
+    ///     name, and the info of the event (classroom, start time and the
+    ///     duration)
+    /// </summary>
     public class CourseInformation : EventInformation
     {
         /// <summary>
@@ -35,16 +40,13 @@ namespace OpenSchedule
         /// <param name="teacherName">
         ///     Name of the teacher in the course
         /// </param>
-        public CourseInformation(string room, DateTime start, TimeSpan duration, string teacherName) : base(room, start,
+        public CourseInformation(string room, DateTime start, TimeSpan duration,
+            string teacherName) : base(room, start,
             duration)
         {
             Teacher = teacherName;
         }
 
-        /// <summary>
-        ///     Information of a course,including the teacher's name,and the info of the event(classroom,start time and the
-        ///     duration)
-        /// </summary>
         public string Teacher { get; }
     }
 }

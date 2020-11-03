@@ -18,10 +18,15 @@ using System;
 
 namespace OpenSchedule
 {
+    /// <summary>
+    ///     Represants a set of information of an event,
+    ///     including classroom(the location of a class),
+    ///     the start time of the course and the duration of the course.
+    /// </summary>
     public class EventInformation : IComparable, ICloneable
     {
         /// <summary>
-        ///     Constructor of class EventInformation
+        ///     Initialize a new instance of EventInformation
         /// </summary>
         /// <param name="room">
         ///     Location of the event
@@ -41,7 +46,8 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        ///     Constructor of class EventInformation, only used in method clone()
+        ///     Initialize a new instance of EventInformation with the
+        ///     specified EventId, only used in method Clone()
         /// </summary>
         /// <param name="room">
         ///     Location of this event
@@ -63,19 +69,17 @@ namespace OpenSchedule
             EventId = Id;
         }
 
-
-        /// <summary>
-        ///     The info of an event, including classroom(the location of a class),
-        ///     the start time of the course and the duration of the course.
-        /// </summary>
         public Guid EventId { get; }
 
         public string Classroom { get; }
+
         public DateTime StartTime { get; }
+
         public TimeSpan EventDuration { get; }
 
+
         /// <summary>
-        ///     Get a new Event same with this event
+        ///     Get a new Event typed object same with this event
         /// </summary>
         /// <returns>
         ///     An object same with the current event

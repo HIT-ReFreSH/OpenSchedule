@@ -21,15 +21,18 @@ using System.Linq;
 namespace OpenSchedule
 {
     /// <summary>
+    ///     Represents a course selected by the schedule user in the educational
+    ///     administration system, contains a number of course information and
+    ///     examination information
     /// </summary>
     public class Course
     {
-        private readonly ISet<CourseInformation> _CourseSet = new SortedSet<CourseInformation>();
+        private readonly SortedSet<CourseInformation> _CourseSet = new SortedSet<CourseInformation>();
 
-        private readonly ISet<ExamInformation> _ExamSet = new SortedSet<ExamInformation>();
+        private readonly SortedSet<ExamInformation> _ExamSet = new SortedSet<ExamInformation>();
 
         /// <summary>
-        ///     Constructor
+        ///     Initialize a new instance of Course.
         /// </summary>
         /// <param name="name">
         ///     Name of the course
@@ -40,10 +43,6 @@ namespace OpenSchedule
             CourseId = Guid.NewGuid();
         }
 
-        /// <summary>
-        ///     A course selected by the schedule user in the educational administration system(jwts),
-        ///     contains a number of course information and examination information
-        /// </summary>
         public string CourseName { get; }
 
         public Guid CourseId { get; }

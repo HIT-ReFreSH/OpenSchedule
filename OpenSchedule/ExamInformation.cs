@@ -18,6 +18,9 @@ using System;
 
 namespace OpenSchedule
 {
+    /// <summary>
+    ///     Represants an examination in a Course
+    /// </summary>
     public class ExamInformation : EventInformation
     {
         /// <summary>
@@ -32,7 +35,8 @@ namespace OpenSchedule
         /// <param name="duration">
         ///     Duration of the exam
         /// </param>
-        public ExamInformation(string room, DateTime start, TimeSpan duration) : base(room, start, duration)
+        public ExamInformation(string room, DateTime start, TimeSpan duration) :
+            base(room, start, duration)
         {
         }
     }

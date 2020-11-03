@@ -18,26 +18,26 @@ using System.Collections.Generic;
 
 namespace OpenSchedule
 {
+    /// <summary>
+    ///     A complete schedule , containing all the course the owner has chosen
+    /// </summary>
     public class Schedule
     {
         private readonly ISet<Course> _CourseSet = new SortedSet<Course>();
 
         /// <summary>
-        ///     Constructor
+        ///     Initialize a new instance of Schedule
         /// </summary>
-        /// <param name="name"
+        /// <param name="name">
         ///     Name of the owner's name of the schedule
-        /// 
         /// </param>
         public Schedule(string name)
         {
             OwnerName = name;
         }
 
-        /// <summary>
-        ///     A complete schedule , containing all the course the owner has chosen
-        /// </summary>
         public string OwnerName { get; }
+
 
         /// <summary>
         ///     Add a new course to the CourseSet
