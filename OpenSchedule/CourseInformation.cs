@@ -21,12 +21,6 @@ namespace OpenSchedule
     public class CourseInformation : EventInformation
     {
         /// <summary>
-        ///     Information of a course,including the teacher's name,and the info of the event(classroom,start time and the duration)
-        /// </summary>
-        public string Teacher { get; }
-
-       
-        /// <summary>
         ///     Constructor of class CourseInfomation
         /// </summary>
         /// <param name="room">
@@ -47,6 +41,10 @@ namespace OpenSchedule
             Teacher = teacherName;
         }
 
-        
+        /// <summary>
+        ///     Information of a course,including the teacher's name,and the info of the event(classroom,start time and the
+        ///     duration)
+        /// </summary>
+        public string Teacher { get; }
     }
 }

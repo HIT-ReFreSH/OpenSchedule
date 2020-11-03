@@ -20,12 +20,6 @@ namespace OpenSchedule
 {
     public class Schedule
     {
-
-        /// <summary>
-        ///     A complete schedule , containing all the course the owner has chosen
-        /// </summary>
-        public string OwnerName { get; }
-
         private readonly ISet<Course> _CourseSet = new SortedSet<Course>();
 
         /// <summary>
@@ -33,11 +27,17 @@ namespace OpenSchedule
         /// </summary>
         /// <param name="name"
         ///     Name of the owner's name of the schedule
+        /// 
         /// </param>
         public Schedule(string name)
         {
             OwnerName = name;
         }
+
+        /// <summary>
+        ///     A complete schedule , containing all the course the owner has chosen
+        /// </summary>
+        public string OwnerName { get; }
 
         /// <summary>
         ///     Add a new course to the CourseSet

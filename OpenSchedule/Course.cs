@@ -24,14 +24,6 @@ namespace OpenSchedule
     /// </summary>
     public class Course
     {
-
-        /// <summary>
-        ///     A course selected by the schedule user in the educational administration system(jwts),
-        ///         contains a number of course information and examination information
-        /// </summary>
-        public string CourseName { get; }
-        public Guid CourseId { get; }
-
         private readonly ISet<CourseInformation> _CourseSet = new SortedSet<CourseInformation>();
 
         private readonly ISet<ExamInformation> _ExamSet = new SortedSet<ExamInformation>();
@@ -48,7 +40,14 @@ namespace OpenSchedule
             CourseId = Guid.NewGuid();
         }
 
-        
+        /// <summary>
+        ///     A course selected by the schedule user in the educational administration system(jwts),
+        ///     contains a number of course information and examination information
+        /// </summary>
+        public string CourseName { get; }
+
+        public Guid CourseId { get; }
+
 
         /// <summary>
         ///     Add a new course event to the course

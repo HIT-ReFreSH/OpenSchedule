@@ -18,21 +18,8 @@ using System;
 
 namespace OpenSchedule
 {
-
     public class EventInformation : IComparable, ICloneable
     {
-        
-
-        /// <summary>
-        ///     The info of an event, including classroom(the location of a class),
-        ///         the start time of the course and the duration of the course.
-        /// </summary>
-        public Guid EventId { get; }
-
-        public string Classroom { get; }
-        public DateTime StartTime { get; }
-        public TimeSpan EventDuration { get; }
-
         /// <summary>
         ///     Constructor of class EventInformation
         /// </summary>
@@ -75,6 +62,17 @@ namespace OpenSchedule
             EventDuration = duration;
             EventId = Id;
         }
+
+
+        /// <summary>
+        ///     The info of an event, including classroom(the location of a class),
+        ///     the start time of the course and the duration of the course.
+        /// </summary>
+        public Guid EventId { get; }
+
+        public string Classroom { get; }
+        public DateTime StartTime { get; }
+        public TimeSpan EventDuration { get; }
 
         /// <summary>
         ///     Get a new Event same with this event
