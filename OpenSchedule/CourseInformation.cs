@@ -47,6 +47,9 @@ namespace OpenSchedule
             Teacher = teacherName;
         }
 
+        /// <summary>
+        ///     Teacher in this course
+        /// </summary>
         public string Teacher { get; }
     }
 }

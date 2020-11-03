@@ -69,12 +69,24 @@ namespace OpenSchedule
             EventId = Id;
         }
 
+        /// <summary>
+        ///     Id of this event
+        /// </summary>
         public Guid EventId { get; }
 
+        /// <summary>
+        ///     Location of this event
+        /// </summary>
         public string Classroom { get; }
 
+        /// <summary>
+        ///     Start time of this event
+        /// </summary>
         public DateTime StartTime { get; }
 
+        /// <summary>
+        ///     Duration of this event
+        /// </summary>
         public TimeSpan EventDuration { get; }
 
 

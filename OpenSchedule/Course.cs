@@ -43,8 +43,14 @@ namespace OpenSchedule
             CourseId = Guid.NewGuid();
         }
 
+        /// <summary>
+        ///     Name of this course
+        /// </summary>
         public string CourseName { get; }
 
+        /// <summary>
+        ///     Id of this course
+        /// </summary>
         public Guid CourseId { get; }
 
 

@@ -23,7 +23,7 @@ namespace OpenSchedule
     /// </summary>
     public class Schedule
     {
-        private readonly ISet<Course> _CourseSet = new SortedSet<Course>();
+        private readonly SortedSet<Course> _CourseSet = new SortedSet<Course>();
 
         /// <summary>
         ///     Initialize a new instance of Schedule
@@ -33,10 +33,13 @@ namespace OpenSchedule
         /// </param>
         public Schedule(string name)
         {
-            OwnerName = name;
+            UserName = name;
         }
 
-        public string OwnerName { get; }
+        /// <summary>
+        ///     Name of the user of the schedule
+        /// </summary>
+        public string UserName { get; }
 
 
         /// <summary>
