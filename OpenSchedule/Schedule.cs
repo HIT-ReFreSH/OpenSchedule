@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using System;
 using System.Collections.Generic;
 
 namespace OpenSchedule
@@ -22,8 +23,9 @@ namespace OpenSchedule
     ///     A complete schedule , containing all the course the owner has chosen
     /// </summary>
     public class Schedule
+    :IEquatable<Schedule>
     {
-        private readonly SortedSet<Course> _CourseSet = new SortedSet<Course>();
+        private readonly SortedSet<Course> _courseSet = new SortedSet<Course>();
 
         /// <summary>
         ///     Initialize a new instance of Schedule
@@ -53,7 +55,7 @@ namespace OpenSchedule
         /// </returns>
         public bool AddNewCourse(Course newCourse)
         {
-            return _CourseSet.Add(newCourse);
+            return _courseSet.Add(newCourse);
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace OpenSchedule
         /// </returns>
         public bool DeleteCourse(Course course)
         {
-            return _CourseSet.Remove(course);
+            return _courseSet.Remove(course);
         }
 
         /// <summary>
@@ -81,7 +83,39 @@ namespace OpenSchedule
         /// </returns>
         public bool Contains(Course course)
         {
-            return _CourseSet.Contains(course);
+            return _courseSet.Contains(course);
         }
+        /// <inheritdoc/>
+        public bool Equals(Schedule? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return _courseSet.SetEquals(other._courseSet) && UserName == other.UserName;
+        }
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((Schedule) obj);
+        }
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_courseSet, UserName);
+        }
+
+        /// <summary>
+        /// Check if two schedules are having the same username, course-set.
+        /// </summary>
+        /// <returns>True if they have.</returns>
+        public static bool operator ==(Schedule? first, Schedule? second)
+            => Equals(first, second);
+        /// <summary>
+        /// Check if two courses are not having the same username, course-set.
+        /// </summary>
+        /// <returns>True if they don't have.</returns>
+        public static bool operator !=(Schedule? first, Schedule? second)
+            => !Equals(first, second);
     }
 }

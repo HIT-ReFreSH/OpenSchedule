@@ -19,14 +19,14 @@ using System;
 namespace OpenSchedule
 {
     /// <summary>
-    ///     Represants a set of information of a course, including the teacher's
+    ///     Represents a set of information of a course, including the teacher's
     ///     name, and the info of the event (classroom, start time and the
     ///     duration)
     /// </summary>
-    public class CourseInformation : EventInformation
+    public class CourseInformation : EventInformation, IEquatable<CourseInformation>
     {
         /// <summary>
-        ///     Constructor of class CourseInfomation
+        ///     Constructor of class CourseInformation
         /// </summary>
         /// <param name="room">
         ///     Location of the course
@@ -40,9 +40,12 @@ namespace OpenSchedule
         /// <param name="teacherName">
         ///     Name of the teacher in the course
         /// </param>
-        public CourseInformation(string room, DateTime start, TimeSpan duration,
-            string teacherName) : base(room, start,
-            duration)
+        /// <param name="id">
+        ///     Id of this event
+        /// </param>
+        public CourseInformation(string? room, DateTime start, TimeSpan duration,
+            string teacherName, Guid id) : base(room, start,
+            duration, id)
         {
             Teacher = teacherName;
         }
@@ -51,5 +54,39 @@ namespace OpenSchedule
         ///     Teacher in this course
         /// </summary>
         public string Teacher { get; }
+
+        /// <inheritdoc/>
+        public bool Equals(CourseInformation? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Teacher == other.Teacher && EqualsCore(other);
+        }
+        /// <inheritdoc/>
+        public override object Clone()
+        {
+            return new CourseInformation(Classroom, StartTime, EventDuration, Teacher,EventId);
+        }
+        /// <inheritdoc/>
+        public override bool Equals(EventInformation? other)
+        {
+            if (other is CourseInformation ci) return Equals(ci);
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((CourseInformation)obj);
+        }
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Teacher,EventId,Classroom,StartTime,EventDuration);
+        }
+
+
     }
 }

@@ -19,31 +19,13 @@ using System;
 namespace OpenSchedule
 {
     /// <summary>
-    ///     Represants a set of information of an event,
+    ///     Represents a set of information of an event,
     ///     including classroom(the location of a class),
     ///     the start time of the course and the duration of the course.
     /// </summary>
-    public class EventInformation : IComparable, ICloneable
+    public abstract class EventInformation : IComparable, IComparable<EventInformation>, ICloneable, IEquatable<EventInformation>
     {
-        /// <summary>
-        ///     Initialize a new instance of EventInformation
-        /// </summary>
-        /// <param name="room">
-        ///     Location of the event
-        /// </param>
-        /// <param name="start">
-        ///     Start time of the event
-        /// </param>
-        /// <param name="duration">
-        ///     Duration of the event
-        /// </param>
-        public EventInformation(string room, DateTime start, TimeSpan duration)
-        {
-            Classroom = room;
-            StartTime = start;
-            EventDuration = duration;
-            EventId = Guid.NewGuid();
-        }
+
 
         /// <summary>
         ///     Initialize a new instance of EventInformation with the
@@ -58,15 +40,15 @@ namespace OpenSchedule
         /// <param name="duration">
         ///     Duration of this event
         /// </param>
-        /// <param name="Id">
+        /// <param name="id">
         ///     Id of this event
         /// </param>
-        private EventInformation(string room, DateTime start, TimeSpan duration, Guid Id)
+        protected EventInformation(string? room, DateTime start, TimeSpan duration, Guid id)
         {
             Classroom = room;
             StartTime = start;
             EventDuration = duration;
-            EventId = Id;
+            EventId = id;
         }
 
         /// <summary>
@@ -75,9 +57,9 @@ namespace OpenSchedule
         public Guid EventId { get; }
 
         /// <summary>
-        ///     Location of this event
+        ///     Location of this event, NULL if no such information provided.
         /// </summary>
-        public string Classroom { get; }
+        public string? Classroom { get; }
 
         /// <summary>
         ///     Start time of this event
@@ -96,10 +78,8 @@ namespace OpenSchedule
         /// <returns>
         ///     An object same with the current event
         /// </returns>
-        public object Clone()
-        {
-            return new EventInformation(Classroom, StartTime, EventDuration, EventId);
-        }
+        public abstract object Clone();
+
 
         /// <summary>
         ///     Compare the input obj and this event by time
@@ -113,14 +93,61 @@ namespace OpenSchedule
         ///     Negative if the obj is later than the current event
         ///     0 if the two times are the same
         /// </returns>
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
             if (obj == null) throw new NullReferenceException();
 
             if (obj is EventInformation otherEventInformation)
-                return StartTime.CompareTo(otherEventInformation.StartTime);
+                return CompareTo(otherEventInformation);
 
-            throw new ArgumentException("Object is not a EventInformation");
+            throw new ArgumentException("Object is not a EventInformation", nameof(obj));
+        }
+        /// <inheritdoc/>
+        public abstract bool Equals(EventInformation? other);
+        /// <summary>
+        /// Check if this and the other event are having same time, teacher, duration.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        protected bool EqualsCore(EventInformation other)
+        {
+            return Equals(Classroom, other.Classroom)
+                   && Equals(StartTime, other.StartTime)
+                   && Equals(EventDuration, other.EventDuration)
+                   && Equals(EventId, other.EventId);
+        }
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((EventInformation)obj);
+        }
+
+        /// <inheritdoc/>
+        public abstract override int GetHashCode();
+
+        /// <summary>
+        /// Check if two events are having same type(class or exam), time, teacher, etc.
+        /// </summary>
+        /// <returns>True if they have.</returns>
+        public static bool operator ==(EventInformation? first, EventInformation? second)
+            => Equals(first, second);
+        /// <summary>
+        /// Check if two events are not having same type(class or exam), time, teacher, etc.
+        /// </summary>
+        /// <returns>True if they don't have.</returns>
+        public static bool operator !=(EventInformation? first, EventInformation? second)
+            => !Equals(first, second);
+        /// <inheritdoc/>
+        public int CompareTo(EventInformation? other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (other is null) return 1;
+            var classroomComparison = string.Compare(Classroom, other.Classroom, StringComparison.Ordinal);
+            if (classroomComparison != 0) return classroomComparison;
+            var startTimeComparison = StartTime.CompareTo(other.StartTime);
+            return startTimeComparison != 0 ? startTimeComparison : EventDuration.CompareTo(other.EventDuration);
         }
     }
 }

@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,12 @@ namespace OpenSchedule
     ///     administration system, contains a number of course information and
     ///     examination information
     /// </summary>
-    public class Course
+    public class Course :
+        IEquatable<Course>
     {
-        private readonly SortedSet<CourseInformation> _CourseSet = new SortedSet<CourseInformation>();
+        private readonly SortedSet<CourseInformation> _courseSet = new SortedSet<CourseInformation>();
 
-        private readonly SortedSet<ExamInformation> _ExamSet = new SortedSet<ExamInformation>();
+        private readonly SortedSet<ExamInformation> _examSet = new SortedSet<ExamInformation>();
 
         /// <summary>
         ///     Initialize a new instance of Course.
@@ -37,10 +39,13 @@ namespace OpenSchedule
         /// <param name="name">
         ///     Name of the course
         /// </param>
-        public Course(string name)
+        /// <param name="id">
+        ///     ID of the course
+        /// </param>
+        public Course(string name, Guid id)
         {
             CourseName = name;
-            CourseId = Guid.NewGuid();
+            CourseId = id;
         }
 
         /// <summary>
@@ -65,7 +70,7 @@ namespace OpenSchedule
         /// </returns>
         public bool AddCourse(CourseInformation newCourse)
         {
-            return _CourseSet.Add(newCourse);
+            return _courseSet.Add(newCourse);
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace OpenSchedule
         /// </returns>
         public bool DeleteCourse(CourseInformation courseToDelete)
         {
-            return _CourseSet.Remove(courseToDelete);
+            return _courseSet.Remove(courseToDelete);
         }
 
 
@@ -94,7 +99,7 @@ namespace OpenSchedule
         /// </returns>
         public bool AddExam(ExamInformation newExam)
         {
-            return _ExamSet.Add(newExam);
+            return _examSet.Add(newExam);
         }
 
         /// <summary>
@@ -106,9 +111,9 @@ namespace OpenSchedule
         /// <returns>
         ///     True if delete successfully
         /// </returns>
-        public bool DeleteCourse(ExamInformation examToDelete)
+        public bool DeleteExam(ExamInformation examToDelete)
         {
-            return _ExamSet.Remove(examToDelete);
+            return _examSet.Remove(examToDelete);
         }
 
         /// <summary>
@@ -120,9 +125,46 @@ namespace OpenSchedule
         /// <returns>
         ///     True if it's been added already
         /// </returns>
-        public bool Contains(EventInformation eventInfo)
+        public bool Contains(EventInformation? eventInfo)
         {
-            return _CourseSet.Contains(eventInfo) || _ExamSet.Contains(eventInfo);
+            if (eventInfo is null) return false;
+            return _courseSet.Contains(eventInfo) || _examSet.Contains(eventInfo);
         }
+
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((Course)obj);
+        }
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_courseSet, _examSet, CourseName);
+        }
+        /// <inheritdoc/>
+        public bool Equals(Course? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return _courseSet.SetEquals(other._courseSet)
+                   && _examSet.SetEquals(other._examSet)
+                   && CourseName == other.CourseName
+                   && CourseId == other.CourseId;
+        }
+
+        /// <summary>
+        /// Check if two courses are having the same name, id, course-set and exam-set.
+        /// </summary>
+        /// <returns>True if they have.</returns>
+        public static bool operator ==(Course? first, Course? second)
+            => Equals(first, second);
+        /// <summary>
+        /// Check if two courses are not having the same name, id, course-set and exam-set.
+        /// </summary>
+        /// <returns>True if they don't have.</returns>
+        public static bool operator !=(Course? first, Course? second)
+            => !Equals(first, second);
     }
 }
