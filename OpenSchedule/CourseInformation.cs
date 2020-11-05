@@ -63,8 +63,13 @@ namespace OpenSchedule
             return Teacher == other.Teacher && EqualsCore(other);
         }
 
-        /// <inheritdoc />
-        public override object Clone()
+        /// <summary>
+        ///     Get a new CourseInformation typed object same with this CourseInformation
+        /// </summary>
+        /// <returns>
+        ///     An object same with the current CourseInformation
+        /// </returns>
+        public CourseInformation Clone()
         {
             return new CourseInformation(Classroom, StartTime, EventDuration, Teacher, EventId);
         }

@@ -49,8 +49,13 @@ namespace OpenSchedule
             return other != null && EqualsCore(other);
         }
 
-        /// <inheritdoc />
-        public override object Clone()
+        /// <summary>
+        ///     Get a new ExamInformation typed object same with this ExamInformation
+        /// </summary>
+        /// <returns>
+        ///     An object same with the current ExamInformation
+        /// </returns>
+        public ExamInformation Clone()
         {
             return new ExamInformation(Classroom, StartTime, EventDuration, EventId);
         }
@@ -64,8 +69,9 @@ namespace OpenSchedule
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            return HashCode.Combine(StartTime, EventDuration, Classroom,EventId);
         }
+        
 
         /// <inheritdoc />
         public override bool Equals(object? obj)

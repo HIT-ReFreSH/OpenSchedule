@@ -23,8 +23,7 @@ namespace OpenSchedule
     ///     including classroom(the location of a class),
     ///     the start time of the course and the duration of the course.
     /// </summary>
-    public abstract class EventInformation : IComparable, IComparable<EventInformation>, ICloneable,
-        IEquatable<EventInformation>
+    public abstract class EventInformation : IComparable, IComparable<EventInformation>, IEquatable<EventInformation>
     {
         /// <summary>
         ///     Initialize a new instance of EventInformation with the
@@ -71,13 +70,7 @@ namespace OpenSchedule
         public TimeSpan EventDuration { get; }
 
 
-        /// <summary>
-        ///     Get a new Event typed object same with this event
-        /// </summary>
-        /// <returns>
-        ///     An object same with the current event
-        /// </returns>
-        public abstract object Clone();
+
 
 
         /// <summary>
