@@ -156,7 +156,7 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        ///     Check if two courses are having the same name, id, course-set and exam-set.
+        ///     Check if two courses have the same name, id, course-set and exam-set.
         /// </summary>
         /// <returns>True if they have.</returns>
         public static bool operator ==(Course? first, Course? second)
@@ -165,7 +165,7 @@ namespace OpenSchedule
         }
 
         /// <summary>
-        ///     Check if two courses are not having the same name, id, course-set and exam-set.
+        ///     Check if two courses don't have the same name, id, course-set and exam-set.
         /// </summary>
         /// <returns>True if they don't have.</returns>
         public static bool operator !=(Course? first, Course? second)
