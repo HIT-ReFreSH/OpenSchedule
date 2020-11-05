@@ -30,15 +30,13 @@ namespace OpenSchedule.Test
             var test = new Course("test-course", id);
 
             Assert.IsTrue(cons.Equals(test));
-            Assert.IsTrue((cons == test)==cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
 
             cons = new Course("cons-course", id);
             Assert.IsFalse(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
-
-            
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
         }
 
         [TestMethod]
@@ -48,15 +46,13 @@ namespace OpenSchedule.Test
             var test = new Schedule("test-schedule");
 
             Assert.IsTrue(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
 
             cons = new Schedule("cons-schedule");
             Assert.IsFalse(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
-
-
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
         }
 
         [TestMethod]
@@ -68,28 +64,28 @@ namespace OpenSchedule.Test
             EventInformation test = new CourseInformation("test-room", dt, TimeSpan.Zero, "test-teacher", id);
 
             Assert.IsTrue(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
 
             cons = new CourseInformation("cons-room", dt, TimeSpan.Zero, "test-teacher", id);
             Assert.IsFalse(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
 
             cons = new ExamInformation("test-room", dt, TimeSpan.Zero, id);
             Assert.IsFalse(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
 
             test = new ExamInformation("test-room", dt, TimeSpan.Zero, id);
             Assert.IsTrue(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
 
             cons = new ExamInformation("cons-room", dt, TimeSpan.Zero, id);
             Assert.IsFalse(cons.Equals(test));
-            Assert.IsTrue((cons == test) == cons.Equals(test));
-            Assert.IsTrue((cons != test) == !cons.Equals(test));
+            Assert.IsTrue(cons == test == cons.Equals(test));
+            Assert.IsTrue(cons != test == !cons.Equals(test));
         }
     }
 }
