@@ -87,8 +87,6 @@ namespace OpenSchedule
         /// </returns>
         public int CompareTo(object? obj)
         {
-            if (obj == null) throw new NullReferenceException();
-
             if (obj is EventInformation otherEventInformation)
                 return CompareTo(otherEventInformation);
 
