@@ -38,30 +38,36 @@ namespace OpenSchedule
         /// <param name="id">
         ///     Id of this event
         /// </param>
-        public ExamInformation(string? room, DateTime start, TimeSpan duration,Guid id) :
-            base(room, start, duration,id)
+        public ExamInformation(string? room, DateTime start, TimeSpan duration, Guid id) :
+            base(room, start, duration, id)
         {
         }
 
-        /// <inheritdoc/>
-        public override object Clone()
-            => new ExamInformation(Classroom, StartTime, EventDuration, EventId);
-        /// <inheritdoc/>
-        public override bool Equals(EventInformation? other)
-        {
-            return other is ExamInformation ei && Equals(ei);
-        }
-        /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public bool Equals(ExamInformation? other)
         {
             return other != null && EqualsCore(other);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
+        public override object Clone()
+        {
+            return new ExamInformation(Classroom, StartTime, EventDuration, EventId);
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(EventInformation? other)
+        {
+            return other is ExamInformation ei && Equals(ei);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override bool Equals(object? obj)
         {
             if (obj is null) return false;

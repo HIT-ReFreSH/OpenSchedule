@@ -28,7 +28,7 @@ namespace OpenSchedule.Test
             var cons = new Schedule("test-schedule");
             var test = new Schedule("test-schedule");
 
-            var course = new Course("test-course",new Guid());
+            var course = new Course("test-course", new Guid());
 
             Assert.AreEqual(cons, test);
 

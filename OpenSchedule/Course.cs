@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +56,17 @@ namespace OpenSchedule
         ///     Id of this course
         /// </summary>
         public Guid CourseId { get; }
+
+        /// <inheritdoc />
+        public bool Equals(Course? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return _courseSet.SetEquals(other._courseSet)
+                   && _examSet.SetEquals(other._examSet)
+                   && CourseName == other.CourseName
+                   && CourseId == other.CourseId;
+        }
 
 
         /// <summary>
@@ -131,40 +141,36 @@ namespace OpenSchedule
             return _courseSet.Contains(eventInfo) || _examSet.Contains(eventInfo);
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override bool Equals(object? obj)
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Course)obj);
+            return obj.GetType() == GetType() && Equals((Course) obj);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             return HashCode.Combine(_courseSet, _examSet, CourseName);
         }
-        /// <inheritdoc/>
-        public bool Equals(Course? other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return _courseSet.SetEquals(other._courseSet)
-                   && _examSet.SetEquals(other._examSet)
-                   && CourseName == other.CourseName
-                   && CourseId == other.CourseId;
-        }
 
         /// <summary>
-        /// Check if two courses are having the same name, id, course-set and exam-set.
+        ///     Check if two courses are having the same name, id, course-set and exam-set.
         /// </summary>
         /// <returns>True if they have.</returns>
         public static bool operator ==(Course? first, Course? second)
-            => Equals(first, second);
+        {
+            return Equals(first, second);
+        }
+
         /// <summary>
-        /// Check if two courses are not having the same name, id, course-set and exam-set.
+        ///     Check if two courses are not having the same name, id, course-set and exam-set.
         /// </summary>
         /// <returns>True if they don't have.</returns>
         public static bool operator !=(Course? first, Course? second)
-            => !Equals(first, second);
+        {
+            return !Equals(first, second);
+        }
     }
 }

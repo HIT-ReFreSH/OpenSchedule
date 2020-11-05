@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace OpenSchedule.Test
 {
@@ -26,8 +26,8 @@ namespace OpenSchedule.Test
         public void ContentChanging()
         {
             var id = new Guid();
-            var cons = new Course("test-course",id);
-            var test= new Course("test-course",id);
+            var cons = new Course("test-course", id);
+            var test = new Course("test-course", id);
             var course = new CourseInformation("test-room", DateTime.Now, TimeSpan.Zero, "test-teacher", id);
             var exam = new ExamInformation("test-room", DateTime.Now, TimeSpan.Zero, id);
 
@@ -66,8 +66,6 @@ namespace OpenSchedule.Test
 
             Assert.IsTrue(test.Contains(course));
             Assert.IsTrue(test.Contains(exam));
-
-
         }
     }
 }

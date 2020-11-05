@@ -23,7 +23,7 @@ namespace OpenSchedule
     ///     A complete schedule , containing all the course the owner has chosen
     /// </summary>
     public class Schedule
-    :IEquatable<Schedule>
+        : IEquatable<Schedule>
     {
         private readonly SortedSet<Course> _courseSet = new SortedSet<Course>();
 
@@ -42,6 +42,14 @@ namespace OpenSchedule
         ///     Name of the user of the schedule
         /// </summary>
         public string UserName { get; }
+
+        /// <inheritdoc />
+        public bool Equals(Schedule? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return _courseSet.SetEquals(other._courseSet) && UserName == other.UserName;
+        }
 
 
         /// <summary>
@@ -85,37 +93,37 @@ namespace OpenSchedule
         {
             return _courseSet.Contains(course);
         }
-        /// <inheritdoc/>
-        public bool Equals(Schedule? other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return _courseSet.SetEquals(other._courseSet) && UserName == other.UserName;
-        }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public override bool Equals(object? obj)
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == GetType() && Equals((Schedule) obj);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             return HashCode.Combine(_courseSet, UserName);
         }
 
         /// <summary>
-        /// Check if two schedules are having the same username, course-set.
+        ///     Check if two schedules are having the same username, course-set.
         /// </summary>
         /// <returns>True if they have.</returns>
         public static bool operator ==(Schedule? first, Schedule? second)
-            => Equals(first, second);
+        {
+            return Equals(first, second);
+        }
+
         /// <summary>
-        /// Check if two courses are not having the same username, course-set.
+        ///     Check if two courses are not having the same username, course-set.
         /// </summary>
         /// <returns>True if they don't have.</returns>
         public static bool operator !=(Schedule? first, Schedule? second)
-            => !Equals(first, second);
+        {
+            return !Equals(first, second);
+        }
     }
 }

@@ -55,38 +55,39 @@ namespace OpenSchedule
         /// </summary>
         public string Teacher { get; }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public bool Equals(CourseInformation? other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
             return Teacher == other.Teacher && EqualsCore(other);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public override object Clone()
         {
-            return new CourseInformation(Classroom, StartTime, EventDuration, Teacher,EventId);
+            return new CourseInformation(Classroom, StartTime, EventDuration, Teacher, EventId);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public override bool Equals(EventInformation? other)
         {
             if (other is CourseInformation ci) return Equals(ci);
             return false;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override bool Equals(object? obj)
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((CourseInformation)obj);
+            return obj.GetType() == GetType() && Equals((CourseInformation) obj);
         }
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public override int GetHashCode()
         {
-            return HashCode.Combine(Teacher,EventId,Classroom,StartTime,EventDuration);
+            return HashCode.Combine(Teacher, EventId, Classroom, StartTime, EventDuration);
         }
-
-
     }
 }
