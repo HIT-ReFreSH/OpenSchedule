@@ -70,9 +70,6 @@ namespace OpenSchedule
         public TimeSpan EventDuration { get; }
 
 
-
-
-
         /// <summary>
         ///     Compare the input obj and this event by time
         /// </summary>

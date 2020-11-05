@@ -69,9 +69,9 @@ namespace OpenSchedule
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return HashCode.Combine(StartTime, EventDuration, Classroom,EventId);
+            return HashCode.Combine(StartTime, EventDuration, Classroom, EventId);
         }
-        
+
 
         /// <inheritdoc />
         public override bool Equals(object? obj)
